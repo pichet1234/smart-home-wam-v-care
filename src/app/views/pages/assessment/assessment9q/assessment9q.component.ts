@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common'; //  ต้อง import มา
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule, ActivatedRoute, Params, ParamMap ,Router} from '@angular/router';
+import { RouterModule, ActivatedRoute,  ParamMap ,Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import { ApiDataService } from '../../../../core/services/api-data.service';
 

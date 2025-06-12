@@ -92,6 +92,11 @@ export class Assessment2qComponent {
         text: this.result,
         icon: 'success',
         confirmButtonText: 'ตกลง'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // ลิงก์ไปยังแรก
+          this.router.navigate(['/register-patient/redirto']);
+        }
       });
     }
     this.form.value.result = this.result

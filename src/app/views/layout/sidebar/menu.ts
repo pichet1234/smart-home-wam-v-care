@@ -66,14 +66,39 @@ export const MENU: MenuItem[] = [
     icon: 'cast',
     subItems:[
       {
-        label: 'แบบคัดกรอง',
-        link: '/form-assessment/form',
+        label: 'กลุ่มที่มีอาการซึมเศร้าเล็กน้อย',
+        link: '/',
       },
       {
-        label: 'แบบสอบถาม',
-        link: '/form-assessment/formtwo',
+        label: 'กลุ่มที่มีอาการซึมเศร้าปานกลาง',
+        link: '/',
       },
+      {
+        label:'กลุ่มที่มีอาการซึมเศร้ารุนแรง',
+        link:'/'
+      }
     ]
+  },
+  {
+    label: 'Report',
+    isTitle: true
+  },{
+    label:'กลุ่มเสี่ยง',
+    icon:'frown',
+    subItems:[
+      {
+        label:'รายงานการติดตามเฝ้าระวัง',
+        link:'/report/risk'
+      }
+    ]
+  },{
+    label: 'Patient',
+    isTitle:true
+  },
+  {
+    label:'ค้นหาประชาชนกลุ่มเสี่ยง',
+    icon:'user',
+    link: '/'
   },
   {
     label: 'Components',
@@ -294,18 +319,6 @@ export const MENU: MenuItem[] = [
         label: 'Feather icons',
         link: '/icons/feather-icons',
       },
-    ]
-  },{
-    label: 'Report',
-    isTitle: true
-  },{
-    label:'กลุ่มเสี่ยง',
-    icon:'frown',
-    subItems:[
-      {
-        label:'รายงานการติดตามเฝ้าระวัง',
-        link:'/report/risk'
-      }
     ]
   },
   {

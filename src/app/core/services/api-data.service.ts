@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, retry} from 'rxjs';
+import { Observable} from 'rxjs';
 
 export interface Patient {
   cid: string;
@@ -30,8 +30,10 @@ export class ApiDataService {
     return this.http.post(`${this.urlServe}/${path}`, data);
   }
 
-getPatient(): Observable<Patient[]>{
+  getPatient(): Observable<Patient[]>{
   return this.http.get<Patient[]>(this.urlServe+'/getpatient')
 }
-
+  getCountPatient(): Observable<any> {
+    return this.http.get(this.urlServe+'/countpatient');
+  }
 }

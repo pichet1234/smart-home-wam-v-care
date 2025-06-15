@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit {
   public cloudStorageChartOptions: ApexOptions | any;
 
   themeCssVariables = inject(ThemeCssVariableService).getThemeCssVariables();
+  countpatient: number = 0;
 
   constructor(private apidataservice: ApiDataService) {}
 
@@ -75,7 +76,12 @@ export class DashboardComponent implements OnInit {
         this.center = this.markers[0].position;
         this.zoom = 12;
       }
-    })
+    });
+    this.apidataservice.getCountPatient().subscribe((respone)=>{
+      this.countpatient = respone.countpatient
+    },(error)=>{
+      console.error('เกิดข้อผิดพลาดในการโหลดข้อมูล:', error);
+    });
   }
 
 

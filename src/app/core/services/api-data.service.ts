@@ -36,4 +36,7 @@ export class ApiDataService {
   getCountPatient(): Observable<any> {
     return this.http.get(this.urlServe+'/countpatient');
   }
+  getcountmildAs(): Observable<any> {
+    return this.http.get(this.urlServe+'/getcountmild');
+  }
 }

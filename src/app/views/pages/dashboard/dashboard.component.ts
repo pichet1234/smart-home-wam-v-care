@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
 
   themeCssVariables = inject(ThemeCssVariableService).getThemeCssVariables();
   countpatient: number = 0;
+  countmild: number = 0;
 
   constructor(private apidataservice: ApiDataService) {}
 
@@ -77,11 +78,19 @@ export class DashboardComponent implements OnInit {
         this.zoom = 12;
       }
     });
+    //Api จำนวนผู้ลงทะเบียนทั้งหมด
     this.apidataservice.getCountPatient().subscribe((respone)=>{
       this.countpatient = respone.countpatient
     },(error)=>{
       console.error('เกิดข้อผิดพลาดในการโหลดข้อมูล:', error);
     });
+    //Api getcountmild ผู้ที่มีอาการซึมเศร้าเล็กน้อย
+    this.apidataservice.getcountmildAs().subscribe((respone)=>{
+      console.log(respone)
+      this.countmild = respone[0].count
+    },(err)=>{
+      console.error('เกิดข้อผิดพลาดในการโหลดข้อมูล:', err);   
+    })
   }
 
 

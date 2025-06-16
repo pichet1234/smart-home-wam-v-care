@@ -39,4 +39,13 @@ export class ApiDataService {
   getcountmildAs(): Observable<any> {
     return this.http.get(this.urlServe+'/getcountmild');
   }
+  getcountgreen(): Observable<any> {
+    return this.http.get(this.urlServe+'/getcountgreen');
+  }
+  getcountred():Observable<any> {
+    return this.http.get(this.urlServe+'/countred');
+  }
+  getcountmoderate(): Observable<any> {
+    return this.http.get(this.urlServe+'/countmoderate');
+  }
 }

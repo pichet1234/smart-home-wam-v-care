@@ -65,8 +65,12 @@ export class MildComponent {
     
     // filter our data
     const temp = this.temp.filter(function(d: any) {
-      return d.name.toLocaleLowerCase().indexOf(val) !== -1 || !val;
-    })
+      return (
+      d.fname.toLowerCase().includes(val) ||
+      d.lname.toLowerCase().includes(val) ||
+      !val
+    );
+    });
 
     // update the rows
     this.rows = temp;

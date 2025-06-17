@@ -48,4 +48,12 @@ export class ApiDataService {
   getcountmoderate(): Observable<any> {
     return this.http.get(this.urlServe+'/countmoderate');
   }
+  //ติดตามคัดกรองซ้ำ ดึงจากวันที่ที่คัดกรอง
+  getMild(startDate: string, endDate: string): Observable<any> {
+    return this.http.post<any>(`${this.urlServe}/getmild`, {
+      startDate,
+      endDate
+    });
+  }
+
 }

@@ -50,7 +50,7 @@ export class ApiDataService {
   }
   //ติดตามคัดกรองซ้ำ ดึงจากวันที่ที่คัดกรอง
   getMild(startDate: string, endDate: string): Observable<any> {
-    return this.http.post<any>(`${this.urlServe}/getmild`, {
+    return this.http.post<any>(`${this.urlServe}/getpatientmild`, {
       startDate,
       endDate
     });

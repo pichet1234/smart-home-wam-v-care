@@ -1,12 +1,78 @@
-import { Component } from '@angular/core';
-
+import { Component, ViewChild ,inject} from '@angular/core';
+import { FormsModule , FormBuilder, FormGroup ,ReactiveFormsModule} from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { ApiDataService,Patient } from '../../../../core/services/api-data.service';
+import { NgbCalendar, NgbDatepickerModule, NgbDateStruct, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ColumnMode, DatatableComponent, NgxDatatableModule } from '@siemens/ngx-datatable';
 @Component({
   selector: 'app-mild',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    NgxDatatableModule,
+    NgbDatepickerModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './mild.component.html',
   styleUrl: './mild.component.scss'
 })
 export class MildComponent {
+  rows: Patient[] = [];
+  temp: Patient[] = [];
+  loadingIndicator = true;
+  reorderable = true;
+  ColumnMode = ColumnMode;
+  reportForm: FormGroup;
+
+  currentDate: NgbDateStruct = inject(NgbCalendar).getToday();
+
+  @ViewChild('table') table: DatatableComponent
+  constructor( private fb: FormBuilder, private apidata:ApiDataService){
+    this.reportForm = this.fb.group({
+      startDate: [''],
+      endDate: ['']
+    });
+
+  }
+  convertNgbDateToString(date: any): string {
+    const y = date.year;
+    const m = String(date.month).padStart(2, '0');
+    const d = String(date.day).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  onSubmit(){
+    const startDate = this.convertNgbDateToString(this.reportForm.value.startDate);
+    const endDate  = this.convertNgbDateToString(this.reportForm.value.endDate);
+    this.apidata.getMild(startDate,endDate).subscribe({
+      next: (data: Patient[]) => {
+        this.temp = [...data];    // backup สำหรับ filter
+        this.rows = data;         // แสดงข้อมูลในตาราง
+
+        this.loadingIndicator = false;
+      },
+      error: (err) => {
+        console.error('เกิดข้อผิดพลาด:', err);
+      }
+    });
+  }
+
+
+
+  updateFilter(event: KeyboardEvent) {
+    const val = (event.target as HTMLInputElement).value.toLocaleLowerCase();
+    
+    // filter our data
+    const temp = this.temp.filter(function(d: any) {
+      return d.name.toLocaleLowerCase().indexOf(val) !== -1 || !val;
+    })
+
+    // update the rows
+    this.rows = temp;
+
+    // whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
 
 }

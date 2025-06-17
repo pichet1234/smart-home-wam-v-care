@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { ApiDataService,Patient } from '../../../../core/services/api-data.service';
 import { NgbCalendar, NgbDatepickerModule, NgbDateStruct, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, DatatableComponent, NgxDatatableModule } from '@siemens/ngx-datatable';
+import { ThaiDatePipe } from "../../../../core/pipes/thai-date.pipe";
+import { CommonModule,DatePipe } from '@angular/common';
 @Component({
   selector: 'app-mild',
   standalone: true,
@@ -12,8 +14,11 @@ import { ColumnMode, DatatableComponent, NgxDatatableModule } from '@siemens/ngx
     NgxDatatableModule,
     NgbDatepickerModule,
     FormsModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    ThaiDatePipe,
+    CommonModule
+],
+providers: [DatePipe],
   templateUrl: './mild.component.html',
   styleUrl: './mild.component.scss'
 })

@@ -48,7 +48,7 @@ export class ApiDataService {
   getcountmoderate(): Observable<any> {
     return this.http.get(this.urlServe+'/countmoderate');
   }
-  //ติดตามคัดกรองซ้ำ ดึงจากวันที่ที่คัดกรอง
+  //ติดตามคัดกรองซ้ำ ดึงจากวันที่คัดกรอง
   getMild(startDate: string, endDate: string): Observable<any> {
     return this.http.post<any>(`${this.urlServe}/getpatientmild`, {
       startDate,

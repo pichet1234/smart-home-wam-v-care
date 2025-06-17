@@ -67,15 +67,15 @@ export const MENU: MenuItem[] = [
     subItems:[
       {
         label: 'กลุ่มที่มีอาการซึมเศร้าเล็กน้อย',
-        link: '/',
+        link: '/followup/mild',
       },
       {
         label: 'กลุ่มที่มีอาการซึมเศร้าปานกลาง',
-        link: '/',
+        link: '/followup/moderate',
       },
       {
         label:'กลุ่มที่มีอาการซึมเศร้ารุนแรง',
-        link:'/'
+        link:'/followup/risk'
       }
     ]
   },

@@ -59,6 +59,10 @@ export const routes: Routes = [
          path: 'register-patient',
         loadChildren: () => import('./views/pages/register-patient/registertwo/registertwo.routes')  
       },
+      {
+        path: 'followup',
+        loadChildren: () => import('./views/pages/followup/followup.routes')
+      }
     ]
   },
   {

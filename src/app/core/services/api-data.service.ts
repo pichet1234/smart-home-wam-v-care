@@ -55,5 +55,11 @@ export class ApiDataService {
       endDate
     });
   }
-
+  //ติดตามคัดกรองซ้ำ กลุ่มเสี่ยงปานกลาง
+ getModerate(startDate: string, endDate: string): Observable<any>{
+   return this.http.post<any>(`${this.urlServe}/getmoderate`,{
+    startDate,
+    endDate
+   });
+ }
 }

@@ -96,6 +96,7 @@ export class RegistertwoComponent {
         console.error('เกิดข้อผิดพลาด:', err.message);
         if(err.error && err.error.message){
           this.alertone.geterrorMessage(err.error.message)
+          this.form.reset();
          }else{
           
          }

@@ -83,7 +83,6 @@ addMarker(event: google.maps.MapMouseEvent) {
     this.form.value.province?.name_th
     this.form.value.district?.name_th
     this.form.value.subdistrict?.name_th
-    console.log(this.form.value);
    
     this.apidataService.sendData(this.path,this.form.value).subscribe({
       next: (response: any) => {

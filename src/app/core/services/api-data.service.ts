@@ -50,16 +50,14 @@ export class ApiDataService {
   }
   //ติดตามคัดกรองซ้ำ ดึงจากวันที่คัดกรอง
   getMild(startDate: string, endDate: string): Observable<any> {
-    return this.http.post<any>(`${this.urlServe}/getpatientmild`, {
-      startDate,
-      endDate
-    });
+    return this.http.post<any>(`${this.urlServe}/getpatientmild`, { startDate,endDate });
   }
   //ติดตามคัดกรองซ้ำ กลุ่มเสี่ยงปานกลาง
  getModerate(startDate: string, endDate: string): Observable<any>{
-   return this.http.post<any>(`${this.urlServe}/getmoderate`,{
-    startDate,
-    endDate
-   });
+   return this.http.post<any>(`${this.urlServe}/getmoderate`,{ startDate, endDate });
+ }
+ //ติดตามคัดกรองซ้ำ กลุ่มเสี่ยงรุ่แรง
+ getRed(startDate: string, endDate: string): Observable<any>{
+    return this.http.post<any>(`${this.urlServe}/getred`,{ startDate, endDate });
  }
 }

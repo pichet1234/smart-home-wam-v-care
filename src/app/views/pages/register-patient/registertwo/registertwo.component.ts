@@ -60,6 +60,7 @@ export class RegistertwoComponent {
     });
   }
   ngOnInit() {
+    this.setCurrentLocation();
     //ส่วนเลือกจังหวัด อำเภอ
     this.form.get('province')?.valueChanges.subscribe(province => {
       this.districts = province ? province.amphure : [];
@@ -74,11 +75,32 @@ export class RegistertwoComponent {
       this.form.get('subdistrict')?.reset();
     });
   }
+
+  setCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const currentLatLng = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        this.center = currentLatLng;
+        this.markerPositions = [currentLatLng];
+        this.form.patchValue({
+          latitude: currentLatLng.lat,
+          longitude: currentLatLng.lng
+        });
+      }, error => {
+        console.error('ไม่สามารถรับตำแหน่งปัจจุบันได้:', error);
+      });
+    } else {
+      console.warn('Browser ไม่รองรับ Geolocation');
+    }
+  }
+
     onSubmit(){
     if(this.form.controls['cid'].hasError('required')){
       this.errorMessage = 'กรุณากรอกข้อมูล';
     }
-    this.form
     this.form.value.province?.name_th
     this.form.value.district?.name_th
     this.form.value.subdistrict?.name_th

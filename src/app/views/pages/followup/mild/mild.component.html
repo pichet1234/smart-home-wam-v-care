@@ -79,8 +79,8 @@
               rowHeight="auto"
             >
               <ngx-datatable-column name="act" [sortable]="false">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                  <i class="feather icon-file text-primary icon-md ms-2" style="cursor: pointer" title="คลิกเพื่อทำบางอย่าง"></i>
+              <ng-template let-row="row" ngx-datatable-cell-template >
+                  <i class="feather icon-file text-primary icon-md ms-2" style="cursor: pointer" title="ติดตาม" (click)="onClickfollow(row,xlModal)"></i>
               </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="คำนำหน้า" prop="prefix"></ngx-datatable-column>
@@ -104,3 +104,62 @@
     </div>
   </div>
   
+<!-- Modal -->
+<ng-template #xlModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">ติดตาม: {{ selectedPatientName }}</h5>
+    <button type="button" class="btn-close" (click)="modal.close('by: close icon')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+<form [formGroup]="followForm" (ngSubmit)="onSendata(modal)">
+      <div class="mb-3">
+        <label>วันที่ติดตาม</label>
+        <input type="date" class="form-control" formControlName="followUpDate" />
+      </div>
+
+      <div class="mb-3">
+        <label>วิธีการติดตาม</label>
+        <select class="form-control" formControlName="followMethod">
+          <option value="โทรศัพท์">โทรศัพท์</option>
+          <option value="พบที่บ้าน">พบที่บ้าน</option>
+          <option value="มาตรวจที่ รพ.">มาตรวจที่ รพ.</option>
+          <option value="อื่น ๆ">อื่น ๆ</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label>ติดตามครั้งที่</label>
+        <input type="number" class="form-control" formControlName="followCount" />
+      </div>
+
+      <div class="mb-3">
+        <label>ผู้ติดตาม</label>
+        <input type="text" class="form-control" formControlName="follower" />
+      </div>
+
+      <div class="mb-3">
+        <label>คำแนะนำ</label>
+        <textarea class="form-control" formControlName="advice"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label>วันนัดถัดไป</label>
+        <input type="date" class="form-control" formControlName="nextAppointment" />
+      </div>
+
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" formControlName="referHospital" />
+        <label class="form-check-label">ส่งต่อ รพ.</label>
+      </div>
+
+      <div class="mb-3">
+        <label>หมายเหตุ</label>
+        <textarea class="form-control" formControlName="note"></textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" [disabled]="followForm.invalid">บันทึกข้อมูล</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

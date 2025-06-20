@@ -87,7 +87,15 @@ export const MENU: MenuItem[] = [
     icon:'frown',
     subItems:[
       {
-        label:'รายงานการติดตามเฝ้าระวัง',
+        label:'Report กลุ่มที่มีอาการซึมเศร้ารุนแรง',
+        link:'/report/risk'
+      },
+      {
+        label: 'Report กลุ่มที่มีอาการซึมเศร้าปานกลาง',
+        link:''
+      },
+      {
+        label:'Report กลุ่มที่มีอาการซึมเศร้าเล็กน้อย',
         link:'/report/risk'
       }
     ]

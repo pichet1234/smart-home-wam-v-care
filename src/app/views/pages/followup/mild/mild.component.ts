@@ -34,18 +34,22 @@ export class MildComponent {
   followForm: FormGroup;
   path:string = 'asfollow'
   selectedPatientName: string = '';
-
+  modalRef: any; // NgbModalRef
   currentDate: NgbDateStruct = inject(NgbCalendar).getToday();
 
   @ViewChild('table') table: DatatableComponent
 
-  constructor( private fb: FormBuilder, private apidata:ApiDataService,private modalService: NgbModal,private router:Router){
+  constructor( 
+    private fb: FormBuilder, 
+    private apidata:ApiDataService,
+    public  modalService: NgbModal,
+    private router:Router ){
     this.reportForm = this.fb.group({
       startDate: [''],
       endDate: ['']
     });
     this.followForm = this.fb.group({
-      pid:['', Validators.required],
+      pid:[''],
       followUpDate: ['', Validators.required],
       followMethod: ['', Validators.required],
       followCount: [1, Validators.required],
@@ -101,10 +105,14 @@ export class MildComponent {
   }
 
   onClickfollow(row: any,content:any){
+    this.followForm.patchValue({
+    pid: row._id
+    })
     this.selectedPatientName = `${row.prefix}${row.fname} ${row.lname}`;
-    this.modalService.open(content,{ size:'lg'});
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
   }
   onSendata(modal: any){
+    console.log(this.followForm.value)
     if (this.followForm.valid) {
   const formData = this.followForm.value;
       this.apidata.sendData(this.path,formData).subscribe({
@@ -119,8 +127,12 @@ export class MildComponent {
                   cancelButtonText: 'ปิด'
                 }).then((result) => {
                   if (result.isConfirmed) {
+                    // ปิด Modal
+                  if (this.modalRef) {
+                        this.modalRef.close();
+                    }
                     // ลิงก์ไปยังหน้าประเมิน 9Q
-                    this.router.navigate(['/assessment/assessment9q'], { queryParams: { pid: this.reportForm.get('pid')?.value } });
+                    this.router.navigate(['/form-assessment/assessment9q'], { queryParams: { pid: this.followForm.get('pid')?.value } });
                   }
               });
         }

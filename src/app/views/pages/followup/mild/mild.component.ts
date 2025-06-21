@@ -1,12 +1,13 @@
 import { Component, ViewChild ,inject} from '@angular/core';
 import { FormsModule , FormBuilder, FormGroup ,ReactiveFormsModule, Validators} from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink,Router } from '@angular/router';
 import { ApiDataService,Patient } from '../../../../core/services/api-data.service';
-import { NgbCalendar, NgbDatepickerModule, NgbDateStruct, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, DatatableComponent, NgxDatatableModule } from '@siemens/ngx-datatable';
 import { ThaiDatePipe } from "../../../../core/pipes/thai-date.pipe";
 import { CommonModule,DatePipe } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-mild',
   standalone: true,
@@ -31,14 +32,14 @@ export class MildComponent {
   ColumnMode = ColumnMode;
   reportForm: FormGroup;
   followForm: FormGroup;
-  path:string = 'followups'
+  path:string = 'asfollow'
   selectedPatientName: string = '';
 
   currentDate: NgbDateStruct = inject(NgbCalendar).getToday();
 
   @ViewChild('table') table: DatatableComponent
 
-  constructor( private fb: FormBuilder, private apidata:ApiDataService,private modalService: NgbModal){
+  constructor( private fb: FormBuilder, private apidata:ApiDataService,private modalService: NgbModal,private router:Router){
     this.reportForm = this.fb.group({
       startDate: [''],
       endDate: ['']
@@ -107,10 +108,22 @@ export class MildComponent {
     if (this.followForm.valid) {
   const formData = this.followForm.value;
       this.apidata.sendData(this.path,formData).subscribe({
-      next: () => {
-        alert('บันทึกเรียบร้อย');
-        modal.close();
-        this.followForm.reset({ followCount: 1, referHospital: false }); // reset ค่า default
+      next: (respone) => {
+        if(respone){
+                Swal.fire({
+                  title: 'บันทึกการติดตามสำเร็จ',
+                  text: 'ทำแบบประเมินรอบถัดไป',
+                  icon: 'success',
+                  showCancelButton: true,
+                  confirmButtonText: 'ไปทำแบบประเมิน 9Q',
+                  cancelButtonText: 'ปิด'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    // ลิงก์ไปยังหน้าประเมิน 9Q
+                    this.router.navigate(['/assessment/assessment9q'], { queryParams: { pid: this.reportForm.get('pid')?.value } });
+                  }
+              });
+        }
       },
       error: (err) => {
         console.error(err);

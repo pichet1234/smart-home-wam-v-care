@@ -132,7 +132,7 @@ export class MildComponent {
                         this.modalRef.close();
                     }
                     // ลิงก์ไปยังหน้าประเมิน 9Q
-                    this.router.navigate(['/form-assessment/assessment9q'], { queryParams: { pid: this.followForm.get('pid')?.value } });
+                    this.router.navigate(['/followup/assessment9q'], { queryParams: { pid: this.followForm.get('pid')?.value } });
                   }
               });
         }

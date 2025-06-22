@@ -1,21 +1,26 @@
 import { Component , OnInit} from '@angular/core';
+import {  NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule,DatePipe  } from '@angular/common'; 
 import { LOCATION_DATA } from '../../../models/location-data';
 import {GoogleMap, MapMarker} from '@angular/google-maps';
 import { RouterModule, Router } from '@angular/router';
 import { ApiDataService } from '../../../../core/services/api-data.service';
 import Swal from 'sweetalert2';
+import {  provideNgxMask } from 'ngx-mask';
+
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
+    NgbDatepickerModule,
     ReactiveFormsModule,
     CommonModule,
     GoogleMap,
     MapMarker,
-    RouterModule,
-  ],
+    RouterModule
+],
+  providers: [DatePipe,provideNgxMask()],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -49,6 +54,7 @@ addMarker(event: google.maps.MapMouseEvent) {
       prefix:['',Validators.required],
       fname:['',Validators.required],
       lname:['',Validators.required],
+      birthday:['',[ Validators.required,Validators.pattern(/^\d{2}\/\d{2}\/\d{4}$/)]],  // รูปแบบ 01/08/2539 เท่านั้น
       phone:[''],
       banumber:['',Validators.required],
       moo:['',Validators.required],

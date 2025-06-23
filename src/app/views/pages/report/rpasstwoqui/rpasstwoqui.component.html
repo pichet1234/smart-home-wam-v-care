@@ -1,0 +1,170 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink=".">Tables</a></li>
+      <li class="breadcrumb-item active" aria-current="page">กลุ่มที่มีอาการซึมเศร้ารุนแรง</li>
+    </ol>
+  </nav>
+  
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+            <!-- Start Date -->
+            <form [formGroup]="reportForm">
+        <div class="d-flex align-items-center flex-wrap text-nowrap">
+            <div class="input-group w-200px me-2 mb-2 mb-md-0">
+                <div class="col-3">
+                <label for="startDate">Start</label>
+                </div>
+                <button class="btn btn-outline-primary btn-icon calendar" type="button" (click)="startPicker.toggle()">
+                <i data-feather="calendar" appFeatherIcon></i>
+                </button>
+                <input class="form-control border-primary bg-transparent"
+                    placeholder="yyyy-mm-dd"
+                    name="startDate"
+                    formControlName="startDate"
+                    ngbDatepicker
+                    #startPicker="ngbDatepicker">
+                </div>
+            
+            <!-- End Date -->
+            <div class="input-group w-200px me-2 mb-2 mb-md-0">
+                <div class="col-3">
+                <label for="endDate">End</label>
+                </div>
+                <button class="btn btn-outline-primary btn-icon calendar" type="button" (click)="endPicker.toggle()">
+                <i data-feather="calendar" appFeatherIcon></i>
+                </button>
+                <input class="form-control border-primary bg-transparent"
+                    placeholder="yyyy-mm-dd"
+                    name="endDate"
+                    formControlName="endDate"
+                    ngbDatepicker
+                    #endPicker="ngbDatepicker">
+                </div>
+                <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0" (click)="onSubmit()">
+                    ค้นหา
+                </button>
+                <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0" (click)="exportExcel()">
+                    Export Excel
+                </button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">รายชื่อประชาชนที่ลงทะเบียน</h6>
+          <div class="row">
+            <div class="col-xl-3 col-md-4">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="ค้นหาชื่อ..."
+                (keyup)="updateFilter($event)"
+              />
+            </div>
+          </div>
+          <div class="table-responsive">
+            <ngx-datatable
+              #table
+              class="bootstrap"
+              [rows]="rows"
+              [loadingIndicator]="loadingIndicator"
+              [columnMode]="ColumnMode.force"
+              [footerHeight]="50"
+              [limit]="10"
+              rowHeight="auto"
+            >
+              <ngx-datatable-column name="act" [sortable]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <i class="feather icon-file text-primary icon-md ms-2" style="cursor: pointer" title="ติดตาม" (click)="onClickfollow(row,xlModal)"></i>
+              </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="คำนำหน้า" prop="prefix"></ngx-datatable-column>
+              <ngx-datatable-column name="ชื่อ" prop="fname"></ngx-datatable-column>
+              <ngx-datatable-column name="นามสกุล" prop="lname"></ngx-datatable-column>
+              <ngx-datatable-column name="เบอร์โทร" prop="phone"></ngx-datatable-column>
+              <ngx-datatable-column name="บ้านเลขที่" prop="address.bannumber"></ngx-datatable-column>
+              <ngx-datatable-column name="หมู่" prop="address.moo"></ngx-datatable-column>
+              <ngx-datatable-column name="ตำบล" prop="address.subdistrict"></ngx-datatable-column>
+              <ngx-datatable-column name="อำเภอ" prop="address.district"></ngx-datatable-column>
+              <ngx-datatable-column name="จังหวัด" prop="address.province"></ngx-datatable-column>
+              <ngx-datatable-column name="ทำแบบประเมินล่าสุด">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row['2Q'].assessmentdate | thaiDate }}
+              </ng-template>
+            </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- Modal -->
+<ng-template #xlModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">ติดตาม: {{ selectedPatientName }}</h5>
+    <button type="button" class="btn-close" (click)="modal.close('by: close icon')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+<form [formGroup]="followForm" (ngSubmit)="onSendata(modal)">
+      <div class="mb-3">
+        <label>วันที่ติดตาม</label>
+        <input type="date" class="form-control" formControlName="followUpDate" />
+      </div>
+
+      <div class="mb-3">
+        <label>วิธีการติดตาม</label>
+        <select class="form-control" formControlName="followMethod">
+          <option value="โทรศัพท์">โทรศัพท์</option>
+          <option value="พบที่บ้าน">พบที่บ้าน</option>
+          <option value="มาตรวจที่ รพ.">มาตรวจที่ รพ.</option>
+          <option value="อื่น ๆ">อื่น ๆ</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label>ติดตามครั้งที่</label>
+        <input type="number" class="form-control" formControlName="followCount" />
+      </div>
+
+      <div class="mb-3">
+        <label>ผู้ติดตาม</label>
+        <input type="text" class="form-control" formControlName="follower" />
+      </div>
+
+      <div class="mb-3">
+        <label>คำแนะนำ</label>
+        <textarea class="form-control" formControlName="advice"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label>วันนัดถัดไป</label>
+        <input type="date" class="form-control" formControlName="nextAppointment" />
+      </div>
+
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" formControlName="referHospital" />
+        <label class="form-check-label">ส่งต่อ รพ.</label>
+      </div>
+
+      <div class="mb-3">
+        <label>หมายเหตุ</label>
+        <textarea class="form-control" formControlName="note"></textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" [disabled]="followForm.invalid">บันทึกข้อมูล</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+

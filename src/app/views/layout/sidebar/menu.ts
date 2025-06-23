@@ -101,7 +101,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'รายงารการคัดกรอง',
     icon:'cast',
-    link:'/'
+    link:'/report/rpasstwoqui'
   },
   {
     label: 'Patient',

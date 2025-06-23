@@ -87,6 +87,11 @@ export class FormComponent {
         text: this.result,
         icon: 'success',
         confirmButtonText: 'ตกลง'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // ลิงก์ไปยังแรก
+          this.router.navigate(['/form-assessment/formtwo']);
+        }
       });
     }
     this.form.value.result = this.result

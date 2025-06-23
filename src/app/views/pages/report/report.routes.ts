@@ -17,5 +17,9 @@ export default [
     {
         path: 'green',
         loadComponent: () =>import('./green/green.component').then(c => c.GreenComponent)
+    },
+    {
+        path: 'rpasstwoqui',
+        loadComponent: () =>import('./rpasstwoqui/rpasstwoqui.component').then(c => c.RpasstwoquiComponent)
     }
 ] as Routes

@@ -64,4 +64,8 @@ export class ApiDataService {
  getRed(startDate: string, endDate: string): Observable<any>{
     return this.http.post<any>(`${this.urlServe}/getred`,{ startDate, endDate });
  }
+ //กรองรายงานการคัดกรอง 2q 
+ assTwoq(startDate:string, endDate:string): Observable<any>{
+  return this.http.post<any>(`${this.urlServe}/asstwoqui`,{ startDate,endDate});
+ } 
 }

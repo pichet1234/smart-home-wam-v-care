@@ -21,7 +21,7 @@ export class FormtwoComponent {
   @ViewChild('table') table: DatatableComponent
     constructor( private apidata: ApiDataService, private route: Router) {  }
       ngOnInit() {
-    this.apidata.getPatient().subscribe({
+    this.apidata.getNotass().subscribe({
       next: (data: Patient[]) => {
         this.temp = [...data];    // backup สำหรับ filter
         this.rows = data;         // แสดงข้อมูลในตาราง

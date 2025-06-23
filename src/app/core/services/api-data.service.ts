@@ -33,6 +33,10 @@ export class ApiDataService {
   getPatient(): Observable<Patient[]>{
   return this.http.get<Patient[]>(this.urlServe+'/getpatient')
 }
+  getNotass(): Observable<any>{
+    return this.http.get(this.urlServe+'/notas2q');
+  }
+
   getCountPatient(): Observable<any> {
     return this.http.get(this.urlServe+'/countpatient');
   }

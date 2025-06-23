@@ -99,13 +99,18 @@ export const MENU: MenuItem[] = [
     link:'/report/risk'
   },
   {
+    label: 'รายงารการคัดกรอง',
+    icon:'cast',
+    link:'/'
+  },
+  {
     label: 'Patient',
     isTitle:true
   },
   {
     label:'ค้นหาประชาชนกลุ่มเสี่ยง',
     icon:'user',
-    link: '/'
+    link: '/patient/'
   },
   {
     label: 'Components',

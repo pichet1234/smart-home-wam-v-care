@@ -62,6 +62,10 @@ export const routes: Routes = [
       {
         path: 'followup',
         loadChildren: () => import('./views/pages/followup/followup.routes')
+      },
+      {
+        path: 'patient',
+        loadChildren: () => import('./views/pages/patient/patient.routes')
       }
     ]
   },

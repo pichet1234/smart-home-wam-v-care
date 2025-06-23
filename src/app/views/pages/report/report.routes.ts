@@ -8,7 +8,7 @@ export default [
     },
     {
         path:'moderate',
-        loadComponent: () => import('./moderate/moderate.component')
+        loadComponent: () => import('./moderate/moderate.component').then(c => c.ModerateComponent)
     },
     {
         path: 'mild',

@@ -82,24 +82,23 @@ export const MENU: MenuItem[] = [
   {
     label: 'Report',
     isTitle: true
-  },{
-    label:'กลุ่มเสี่ยง',
-    icon:'frown',
-    subItems:[
-      {
-        label:'Report กลุ่มที่มีอาการซึมเศร้ารุนแรง',
-        link:'/report/risk'
-      },
-      {
-        label: 'Report กลุ่มที่มีอาการซึมเศร้าปานกลาง',
-        link:''
-      },
-      {
-        label:'Report กลุ่มที่มีอาการซึมเศร้าเล็กน้อย',
-        link:'/report/risk'
-      }
-    ]
-  },{
+  },
+  {
+    label:'กลุ่มที่มีอาการซึมเล็กน้อย',
+    icon:'users',
+    link:'/report/mild'
+  },
+  {
+    label: 'กลุ่มที่มีอาการซึมเศร้าปานกลาง',
+    icon:'users',
+    link:'/report/moderate'
+  },
+  {
+    label:'กลุ่มที่มีอาการซึมเศร้ารุนแรง',
+    icon:'users',
+    link:'/report/risk'
+  },
+  {
     label: 'Patient',
     isTitle:true
   },

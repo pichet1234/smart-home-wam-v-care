@@ -1,11 +1,12 @@
 import { Component, ViewChild ,inject } from '@angular/core';
-import { FormsModule , FormBuilder, FormGroup ,ReactiveFormsModule} from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { FormsModule , FormBuilder, FormGroup ,ReactiveFormsModule, Validators} from '@angular/forms';
+import { RouterLink,Router  } from '@angular/router';
 import { ApiDataService,Patient } from '../../../../core/services/api-data.service';
-import { NgbCalendar, NgbDatepickerModule, NgbDateStruct, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDatepickerModule, NgbDateStruct,NgbModal  } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, DatatableComponent, NgxDatatableModule } from '@siemens/ngx-datatable';
 import { ThaiDatePipe } from "../../../../core/pipes/thai-date.pipe";
 import { CommonModule,DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-moderate',
   standalone: true,
@@ -29,15 +30,28 @@ export class ModerateComponent {
   reorderable = true;
   ColumnMode = ColumnMode;
   reportForm: FormGroup;
-
+  followForm: FormGroup;
+  path:string = 'asfollow'
+  selectedPatientName: string = '';
+  modalRef: any; // NgbModalRef
   currentDate: NgbDateStruct = inject(NgbCalendar).getToday();
   @ViewChild('table') table: DatatableComponent
-  constructor( private fb: FormBuilder, private apidata:ApiDataService){
+  constructor( private fb: FormBuilder,public  modalService: NgbModal, private apidata:ApiDataService,private router:Router){
     this.reportForm = this.fb.group({
       startDate: [''],
       endDate: ['']
     });
-
+    this.followForm = this.fb.group({
+      pid:[''],
+      followUpDate: ['', Validators.required],
+      followMethod: ['', Validators.required],
+      followCount: [1, Validators.required],
+      follower: ['', Validators.required],
+      advice: [''],
+      nextAppointment: [''],
+      referHospital: [false],
+      note: ['']
+    });
   }
   convertNgbDateToString(date: any): string {
     const y = date.year;
@@ -79,6 +93,46 @@ export class ModerateComponent {
 
     // whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+  onClickfollow(row: any,content:any){
+    this.followForm.patchValue({
+    pid: row._id
+    })
+    this.selectedPatientName = `${row.prefix}${row.fname} ${row.lname}`;
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
+  }
+  onSendata(modal: any){
+    console.log(this.followForm.value)
+    if (this.followForm.valid) {
+  const formData = this.followForm.value;
+      this.apidata.sendData(this.path,formData).subscribe({
+      next: (respone) => {
+        if(respone){
+                Swal.fire({
+                  title: 'บันทึกการติดตามสำเร็จ',
+                  text: 'ทำแบบประเมินรอบถัดไป',
+                  icon: 'success',
+                  showCancelButton: true,
+                  confirmButtonText: 'ไปทำแบบประเมิน 9Q',
+                  cancelButtonText: 'ปิด'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    // ปิด Modal
+                  if (this.modalRef) {
+                        this.modalRef.close();
+                    }
+                    // ลิงก์ไปยังหน้าประเมิน 9Q
+                    this.router.navigate(['/followup/assessment9q'], { queryParams: { pid: this.followForm.get('pid')?.value } });
+                  }
+              });
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        alert('บันทึกล้มเหลว');
+      }
+    });
+    }
   }
 
 }

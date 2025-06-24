@@ -112,7 +112,7 @@ export const MENU: MenuItem[] = [
     icon:'user',
     link: '/patient/'
   },
-  {
+ /* {
     label: 'Components',
     isTitle: true
   },
@@ -332,8 +332,8 @@ export const MENU: MenuItem[] = [
         link: '/icons/feather-icons',
       },
     ]
-  },
-  {
+  },*/
+/*  {
     label: 'Pages',
     isTitle: true
   },
@@ -394,5 +394,5 @@ export const MENU: MenuItem[] = [
         link: '/error/500',
       },
     ]
-  },
+  },*/
 ];

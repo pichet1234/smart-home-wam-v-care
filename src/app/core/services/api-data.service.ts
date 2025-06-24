@@ -72,4 +72,10 @@ export class ApiDataService {
  followUpmild(): Observable<any>{
   return this.http.get(this.urlServe+'/getfollowupmild');
  } 
+
+
+
+ viewPatient(pid: string) {
+  return this.http.post<any>(this.urlServe+'/viewpatient', { pid });
+}
 }

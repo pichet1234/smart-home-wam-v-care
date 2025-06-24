@@ -94,7 +94,7 @@ addMarker(event: google.maps.MapMouseEvent) {
       next: (response: any) => {
         if (response) {
           console.log(response.data);
-          this.pid = response.data[0]._id;
+          this.pid = response.data._id;
           // ทำงานต่อเมื่อ insert สำเร็จ เช่น ไปหน้าแบบประเมิน
           Swal.fire({
             title: 'ลงทะเบียนสำเร็จ',

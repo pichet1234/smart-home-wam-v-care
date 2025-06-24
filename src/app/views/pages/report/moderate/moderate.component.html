@@ -1,1 +1,60 @@
-<p>moderate works!</p>
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title fs-2">รายงานการติดกลุ่มที่มีอาการซึมเศร้าปานกลาง</h3>
+  
+          <div class="table-responsive pt-3">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>ชื่อ</th>
+                  <th>สกุล</th>
+                  <th>บ้านเลขที่</th>
+                  <th>หมู่</th>
+                  <th>ตำบล</th>
+                  <th>อำเภอ</th>
+                  <th>จังหวัด</th>
+                  <th>เบอร์โทร</th>
+                  <th>วันที่คัดกรอง</th>
+                  <th>ผลการติดตาม</th>
+                  <th>สรุปผล</th>
+                  <th>นัดถัดไป</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fmild of followmoderate">
+                    <td>
+                      <i class="feather icon-trash-2"></i>&nbsp;
+                      <i class="feather icon-check-square mt-3"></i>&nbsp;
+                      <i class="feather icon-external-link mt-3"></i>
+                    </td>
+                    <td>{{ fmild.fname }}</td>
+                    <td>{{ fmild.lname }}</td>
+                    <td>{{ fmild.address?.bannumber}}</td>
+                    <td>{{ fmild.address?.moo}}</td>
+                    <td>{{ fmild.address?.subdistrict}}</td>
+                    <td>{{ fmild.address?.district}}</td>
+                    <td>{{ fmild.address?.province }}</td>
+                    <td>{{ fmild.phone }}</td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let a of fmild.assessment">
+                              {{ a.assessmentdate | date:'shortDate' }} (รอบ {{ a.round }}) → คะแนน: {{ a.score }}
+                            </li>
+                          </ul>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ fmild.followup[0]?.nextAppointment | thaiDate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+

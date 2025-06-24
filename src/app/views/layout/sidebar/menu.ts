@@ -112,7 +112,7 @@ export const MENU: MenuItem[] = [
     icon:'user',
     link: '/patient/'
   },
- /* {
+  /*{
     label: 'Components',
     isTitle: true
   },

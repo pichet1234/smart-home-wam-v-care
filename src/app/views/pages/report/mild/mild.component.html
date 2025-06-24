@@ -25,7 +25,11 @@
               </thead>
               <tbody>
                 <tr *ngFor="let fmild of followmild">
-                    <td>1</td>
+                    <td>
+                      <i class="feather icon-trash-2"></i>&nbsp;
+                      <i class="feather icon-check-square mt-3"></i>&nbsp;
+                      <i class="feather icon-external-link mt-3"></i>
+                    </td>
                     <td>{{ fmild.fname }}</td>
                     <td>{{ fmild.lname }}</td>
                     <td>{{ fmild.address?.bannumber}}</td>

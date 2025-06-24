@@ -1,99 +1,27 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink,RouterModule } from '@angular/router';
-import { NgApexchartsModule } from 'ng-apexcharts';
-import { ThemeCssVariableService, ThemeCssVariablesType } from '../../../../core/services/theme-css-variable.service';
-
+import { Component } from '@angular/core';
+import { ApiDataService } from '../../../../core/services/api-data.service';
+import { CommonModule,DatePipe } from '@angular/common';
+import { ThaiDatePipe } from "../../../../core/pipes/thai-date.pipe";
 @Component({
   selector: 'app-risk',
   standalone: true,
   imports: [
-    RouterModule,
-    NgApexchartsModule
+    CommonModule,
+    ThaiDatePipe
   ],
+  providers: [DatePipe],
   templateUrl: './risk.component.html',
   styleUrl: './risk.component.scss'
 })
-export class RiskComponent implements OnInit {
-  public donutChartOptions: any = {};
-  public pieChartOptions: any = {};
-
-  private themeCssVariableService = inject(ThemeCssVariableService);
-
-  constructor() {}
+export class RiskComponent {
+followred:any[] = [];
+  constructor( private apidata:ApiDataService){ }
 
   ngOnInit(): void {
-    const themeCssVariables = this.themeCssVariableService.getThemeCssVariables();
-
-    this.donutChartOptions = this.getDonutChartOptions(themeCssVariables);
-    this.pieChartOptions = this.getPieChartOptions(themeCssVariables);
+        this.apidata.followUpred().subscribe((respone)=>{
+      if(respone){
+        this.followred = respone;
+      }
+    });
   }
-    /**
-   * Donut chart options
-   */
-  getDonutChartOptions(themeVariables: ThemeCssVariablesType) {
-    return {
-      series: [44, 55, 13, 33],
-      chart: {
-        height: 300,
-        type: "donut",
-        foreColor: themeVariables.secondary,
-        toolbar: {
-          show: false
-        },
-      },
-      colors: [themeVariables.primary,themeVariables.warning,themeVariables.danger, themeVariables.info],
-      stroke: {
-        colors: ['rgba(0,0,0,0)']
-      },
-      legend: {
-        show: true,
-        position: "top",
-        horizontalAlign: 'center',
-        fontFamily: themeVariables.fontFamily,
-        itemMargin: {
-          horizontal: 8,
-          vertical: 0
-        },
-      },
-      dataLabels: {
-        enabled: false
-      }
-    }
-  };
-
-
-
-  /**
-   * Pie chart options
-   */
-  getPieChartOptions(themeVariables: ThemeCssVariablesType) {
-    return {
-      series: [44, 55, 13, 33],
-      chart: {
-        height: 300,
-        type: "pie",
-        foreColor: themeVariables.secondary,
-        toolbar: {
-          show: false
-        },
-      },
-      colors: [themeVariables.primary,themeVariables.warning,themeVariables.danger, themeVariables.info],
-      stroke: {
-        colors: ['rgba(0,0,0,0)']
-      },
-      legend: {
-        show: true,
-        position: "top",
-        horizontalAlign: 'center',
-        fontFamily: themeVariables.fontFamily,
-        itemMargin: {
-          horizontal: 8,
-          vertical: 0
-        },
-      },
-      dataLabels: {
-        enabled: false
-      }
-    }
-  };
 }

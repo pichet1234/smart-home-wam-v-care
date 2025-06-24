@@ -18,8 +18,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     CommonModule,
     GoogleMap,
     MapMarker,
-    RouterModule,
-    NgxMaskDirective
+    RouterModule
+
 ],
   providers: [DatePipe,provideNgxMask()],
   templateUrl: './register.component.html',
@@ -55,7 +55,7 @@ addMarker(event: google.maps.MapMouseEvent) {
       prefix:['',Validators.required],
       fname:['',Validators.required],
       lname:['',Validators.required],
-      birthday:['',[ Validators.required,Validators.pattern(/^\d{2}\/\d{2}\/\d{4}$/)]],  // รูปแบบ 01/08/2539 เท่านั้น
+      birthday:['',[ Validators.required,Validators.pattern(/^([0-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/\d{4}$/)]],  // รูปแบบ 01/08/2539 เท่านั้น
       phone:[''],
       banumber:['',Validators.required],
       moo:['',Validators.required],

@@ -6,7 +6,7 @@ import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
 import { ApiDataService } from '../../../../core/services/api-data.service';
 import { AlertOneService } from '../../../../core/services/alert-one.service';
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import {  provideNgxMask } from 'ngx-mask';
 @Component({
   selector: 'app-registertwo',
   standalone: true,
@@ -16,7 +16,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     GoogleMap,
     MapMarker,
     RouterModule,
-    NgxMaskDirective
+
   ],
   providers: [provideNgxMask()],
   templateUrl: './registertwo.component.html',

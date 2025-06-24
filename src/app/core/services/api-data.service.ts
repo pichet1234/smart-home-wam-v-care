@@ -67,5 +67,9 @@ export class ApiDataService {
  //กรองรายงานการคัดกรอง 2q 
  assTwoq(startDate:string, endDate:string): Observable<any>{
   return this.http.post<any>(`${this.urlServe}/asstwoqui`,{ startDate,endDate});
+ }
+ //followup mild
+ followUpmild(): Observable<any>{
+  return this.http.get(this.urlServe+'/getfollowupmild');
  } 
 }

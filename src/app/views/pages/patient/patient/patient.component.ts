@@ -36,7 +36,7 @@ export class PatientComponent {
   }
   onIconClick(row: any) {
     console.log('ID:', row._id, row.fname);
-    this.route.navigate(['/form-assessment/form'], { queryParams: { pid: row._id } });
+    this.route.navigate(['/patient/view-patient'], { queryParams: { pid: row._id } });
     }
   oniconEdit(row: any){
     console.log('ID:', row._id, row.fname);

@@ -9,5 +9,9 @@ export default[
     {
         path: 'edit-patient',
         loadComponent: () => import('./edit-patient/edit-patient.component').then(c => c.EditPatientComponent) 
+    },
+    {
+        path: 'view-patient',
+        loadComponent: () =>import('./view-patient/view-patient.component').then(c => c.ViewPatientComponent)
     }
 ] as Routes

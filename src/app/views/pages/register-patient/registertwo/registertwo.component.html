@@ -51,6 +51,16 @@
                                     </div><!-- Col -->
                                 </div><!-- Row -->
                                 <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">วันเดือนปีเกิด</label>
+                                            <input class="form-control mb-4 mb-md-0" mask="d0/M0/0000" name="birthday" formControlName="birthday" placeholder="วว/ดด/ปปปป" required>
+                                            <div class="text-danger mt-1" *ngIf="form.controls['birthday'].invalid && form.controls['birthday'].touched">
+                                                <div *ngIf="form.controls['birthday'].errors?.required">กรุณากรอกวันเดือนปีเกิด</div>
+                                                <div *ngIf="form.controls['birthday'].errors?.pattern">รูปแบบต้องเป็น วว/ดด/ปปปป เช่น 01/08/2539</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">เบอร์โทร</label>

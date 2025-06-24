@@ -7,7 +7,7 @@ import {GoogleMap, MapMarker} from '@angular/google-maps';
 import { RouterModule, Router } from '@angular/router';
 import { ApiDataService } from '../../../../core/services/api-data.service';
 import Swal from 'sweetalert2';
-import {  provideNgxMask } from 'ngx-mask';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +18,8 @@ import {  provideNgxMask } from 'ngx-mask';
     CommonModule,
     GoogleMap,
     MapMarker,
-    RouterModule
+    RouterModule,
+    NgxMaskDirective
 ],
   providers: [DatePipe,provideNgxMask()],
   templateUrl: './register.component.html',

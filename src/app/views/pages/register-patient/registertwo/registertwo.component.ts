@@ -6,7 +6,7 @@ import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
 import { ApiDataService } from '../../../../core/services/api-data.service';
 import { AlertOneService } from '../../../../core/services/alert-one.service';
-
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 @Component({
   selector: 'app-registertwo',
   standalone: true,
@@ -16,7 +16,9 @@ import { AlertOneService } from '../../../../core/services/alert-one.service';
     GoogleMap,
     MapMarker,
     RouterModule,
+    NgxMaskDirective
   ],
+  providers: [provideNgxMask()],
   templateUrl: './registertwo.component.html',
   styleUrl: './registertwo.component.scss'
 })
@@ -49,6 +51,7 @@ export class RegistertwoComponent {
       prefix: ['', Validators.required],
       fname: ['', Validators.required],
       lname: ['', Validators.required],
+      birthday:['',[ Validators.required,Validators.pattern(/^\d{2}\/\d{2}\/\d{4}$/)]],  // รูปแบบ 01/08/2539 เท่านั้น
       phone: [''],
       banumber: ['', Validators.required],
       moo: ['', Validators.required],

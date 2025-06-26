@@ -82,7 +82,7 @@ export class ApiDataService {
  viewPatient(pid: string) {
   return this.http.post<any>(this.urlServe+'/viewpatient', { pid });
 }
-sendLineNotify(data: { message: string }) {
-  return this.http.post('/api/send-line', data);
-}
+ eitPatient(pid: string) {
+   return this.http.post<any>(this.urlServe+'/editpatient', { pid });
+ }
 }

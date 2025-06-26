@@ -130,13 +130,6 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 d-flex align-items-end">
-                                        <div class="mb-3 w-100">
-                                            <button class="btn btn-success mt-2" (click)="sendToLineNotify()">
-                                                ส่งพิกัดไปยัง LINE
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                                 <google-map height="500px" width="100%" [center]="center" [zoom]="zoom">
                                     <map-marker *ngFor="let marker of markers" [position]="marker.position"

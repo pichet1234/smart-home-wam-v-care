@@ -113,23 +113,5 @@ export class ViewPatientComponent {
   }
 }
 
-sendToLineNotify() {
-  const lat = this.form.get('latitude')?.value;
-  const lng = this.form.get('longitude')?.value;
-  const name = this.form.get('fname')?.value + ' ' + this.form.get('lname')?.value;
 
-  if (lat && lng) {
-    const message = `📍 พิกัดของ ${name} คือ: https://www.google.com/maps?q=${lat},${lng}`;
-    this.apidata.sendLineNotify({ message }).subscribe({
-      next: () => {
-        Swal.fire('สำเร็จ', 'ส่งพิกัดไปยัง LINE แล้ว', 'success');
-      },
-      error: () => {
-        Swal.fire('ผิดพลาด', 'ส่งไม่สำเร็จ', 'error');
-      }
-    });
-  } else {
-    Swal.fire('ไม่พบพิกัด', 'ไม่สามารถส่งข้อมูลได้', 'warning');
-  }
-}
 }

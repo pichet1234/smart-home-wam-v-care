@@ -50,6 +50,7 @@ export class EditPatientComponent {
   pid:string = '';
   constructor(private fb: FormBuilder , private apidataService: ApiDataService, private route: Router , private activateroute: ActivatedRoute,private datePipe: DatePipe) {
     this.form = this.fb.group({
+      pid:[''],
       cid:[''],
       prefix:[''],
       fname:[''],
@@ -86,6 +87,7 @@ export class EditPatientComponent {
 
               // 3. ใส่ค่าลงใน form
               this.form.patchValue({
+                pid:res._id,
                 cid: res.cid,
                 prefix: res.prefix,
                 fname: res.fname,

@@ -139,11 +139,9 @@ this.form.get('district')?.valueChanges.subscribe(district => {
 });
 }
 onSubmit(){
-      console.log(this.form.value);
     this.apidataService.sendData(this.path,this.form.value).subscribe({
       next: (response: any) => {
         if (response) {
-          console.log(response.data);
           Swal.fire({
             title: 'แก้ไขข้อมูลสำเร็จ',
             text: 'update data',

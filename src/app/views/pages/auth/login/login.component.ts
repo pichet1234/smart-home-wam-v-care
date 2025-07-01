@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
   }
 
     login() {
+        const splash = document.getElementById('splash-screen');
+  if (splash) splash.style.display = 'block'; // แสดง splash
     this.auth.login({ username: this.form.value.username, password: this.form.value.password }).subscribe({
       next: (res: any) => {
         this.auth.saveToken(res.token);
@@ -35,8 +37,12 @@ export class LoginComponent implements OnInit {
       // เก็บข้อมูลผู้ใช้
         localStorage.setItem('user', JSON.stringify(res.user));
         this.router.navigate(['/dashboard']);
+         if (splash) splash.style.display = 'none'; // ซ่อน splash
       },
-      error: err => alert(err.error.message),
+      error: err => {
+      alert(err.error.message);
+      if (splash) splash.style.display = 'none'; // ซ่อน splash เมื่อ error
+    }
     });
   }
 

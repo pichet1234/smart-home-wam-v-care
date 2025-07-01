@@ -4,3 +4,51 @@
   align-items: center;
   justify-content: center;
 }
+.form-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255,255,255,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  z-index: 9999;
+  display: flex; /* ต้องเป็น flex เพื่อจัดกลาง */
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  background-image: url(../../../../../../public/images/logo-mini-light.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #ccc;
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

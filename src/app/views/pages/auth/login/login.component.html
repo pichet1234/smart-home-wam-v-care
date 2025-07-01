@@ -1,3 +1,11 @@
+<!-- Splash screen -->
+<div *ngIf="loading" class="form-overlay">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+
 <div class="container">
   <div class="row w-100 mx-0 auth-page">
     <div class="col-md-8 col-xl-7 mx-auto">
@@ -28,7 +36,11 @@
                   </label>
                 </div>
                 <div>
-                  <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" (click)="login()">Login</button>
+                  <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" [disabled]="loading" (click)="login()">
+                    <span *ngIf="!loading">Login</span>
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span *ngIf="loading"> Loading...</span>
+                  </button>
                   <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
                     <i class="feather icon-twitter btn-icon-prepend"></i>
                     Login with twitter
@@ -43,9 +55,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<div id="splash-screen">
-  <div class="logo"></div>
-  <div class="spinner"></div>
 </div>

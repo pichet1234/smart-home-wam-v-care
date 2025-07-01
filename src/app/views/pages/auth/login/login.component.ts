@@ -1,4 +1,4 @@
-import { NgStyle } from '@angular/common';
+import { NgStyle,CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,7 +10,8 @@ import { AuthService } from '../../../../core/services/auth.service';
   imports: [
     NgStyle,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   imgUrl='../images/smartwamv2.jpg';
   returnUrl: any;
   form: FormGroup;
+  loading: boolean = false;
   constructor(private fb:FormBuilder, private auth: AuthService,private router: Router, private route: ActivatedRoute) {
     this.form = fb.group({
       username:['',Validators.required],
@@ -27,8 +29,8 @@ export class LoginComponent implements OnInit {
   }
 
     login() {
-        const splash = document.getElementById('splash-screen');
-  if (splash) splash.style.display = 'block'; // แสดง splash
+      this.showSplash(true); // แสดง splash ก่อนเริ่มโหลด
+      this.loading = true;
     this.auth.login({ username: this.form.value.username, password: this.form.value.password }).subscribe({
       next: (res: any) => {
         this.auth.saveToken(res.token);
@@ -37,11 +39,13 @@ export class LoginComponent implements OnInit {
       // เก็บข้อมูลผู้ใช้
         localStorage.setItem('user', JSON.stringify(res.user));
         this.router.navigate(['/dashboard']);
-         if (splash) splash.style.display = 'none'; // ซ่อน splash
+        this.showSplash(false); // ซ่อน splash เมื่อโหลดเสร็จ
+        this.loading = false; 
       },
       error: err => {
       alert(err.error.message);
-      if (splash) splash.style.display = 'none'; // ซ่อน splash เมื่อ error
+      this.showSplash(false); // ซ่อน splash แม้เกิด error
+      this.loading = false
     }
     });
   }
@@ -58,5 +62,10 @@ export class LoginComponent implements OnInit {
       this.router.navigate([this.returnUrl]);
     }
   }
-
+  showSplash(show: boolean) {
+    const splash = document.getElementById('splash-screen');
+    if (splash) {
+      splash.style.display = show ? 'flex' : 'none'; // ← ต้องใช้ 'flex' ถ้า CSS ใช้ display: flex
+    }
+  }
 }

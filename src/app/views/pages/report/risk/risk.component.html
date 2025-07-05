@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="showtable">
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
@@ -27,7 +27,7 @@
                 <tr *ngFor="let fmild of followred">
                     <td>
                       <i class="feather icon-trash-2"></i>&nbsp;
-                      <i class="feather icon-check-square mt-3"></i>&nbsp;
+                      <i class="feather icon-file mt-3" (click)="onClickass(fmild._id)"></i>&nbsp;
                       <i class="feather icon-external-link mt-3"></i>
                     </td>
                     <td>{{ fmild.fname }}</td>
@@ -57,3 +57,14 @@
       </div>
     </div>
   </div>
+<!--row 8Q-->
+<div class="row" *ngIf="showform">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title fs-2">8Q</h3>
+      </div>
+    </div>
+  </div>
+</div>
+  

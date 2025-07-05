@@ -15,13 +15,21 @@ import { ThaiDatePipe } from "../../../../core/pipes/thai-date.pipe";
 })
 export class RiskComponent {
 followred:any[] = [];
+showform: boolean = false;
+showtable:boolean = true;
   constructor( private apidata:ApiDataService){ }
 
   ngOnInit(): void {
-        this.apidata.followUpred().subscribe((respone)=>{
+    this.apidata.followUpred().subscribe((respone)=>{
       if(respone){
         this.followred = respone;
       }
     });
+  }
+
+  onClickass(id:any){
+    console.log(id)
+    this.showform = true;
+    this.showtable = false;
   }
 }

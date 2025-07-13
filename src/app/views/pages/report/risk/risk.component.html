@@ -1,70 +1,243 @@
 <div class="row" *ngIf="showtable">
-    <div class="col-md-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title fs-2">รายงานการติดกลุ่มที่มีอาการซึมเศร้ารุนแรง</h3>
-  
-          <div class="table-responsive pt-3">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>ชื่อ</th>
-                  <th>สกุล</th>
-                  <th>บ้านเลขที่</th>
-                  <th>หมู่</th>
-                  <th>ตำบล</th>
-                  <th>อำเภอ</th>
-                  <th>จังหวัด</th>
-                  <th>เบอร์โทร</th>
-                  <th>วันที่คัดกรอง</th>
-                  <th>ผลการติดตาม</th>
-                  <th>สรุปผล</th>
-                  <th>นัดถัดไป</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let fmild of followred">
-                    <td>
-                      <i class="feather icon-trash-2"></i>&nbsp;
-                      <i class="feather icon-file mt-3" (click)="onClickass(fmild._id)"></i>&nbsp;
-                      <i class="feather icon-external-link mt-3"></i>
-                    </td>
-                    <td>{{ fmild.fname }}</td>
-                    <td>{{ fmild.lname }}</td>
-                    <td>{{ fmild.address?.bannumber}}</td>
-                    <td>{{ fmild.address?.moo}}</td>
-                    <td>{{ fmild.address?.subdistrict}}</td>
-                    <td>{{ fmild.address?.district}}</td>
-                    <td>{{ fmild.address?.province }}</td>
-                    <td>{{ fmild.phone }}</td>
-                    <td>
-                        <ul>
-                            <li *ngFor="let a of fmild.assessment">
-                              {{ a.assessmentdate | date:'shortDate' }} (รอบ {{ a.round }}) → คะแนน: {{ a.score }}
-                            </li>
-                          </ul>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ fmild.followup[0]?.nextAppointment | thaiDate }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-  
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title fs-2">รายงานการติดกลุ่มที่มีอาการซึมเศร้ารุนแรง</h3>
+
+        <div class="table-responsive pt-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ชื่อ</th>
+                <th>สกุล</th>
+                <th>บ้านเลขที่</th>
+                <th>หมู่</th>
+                <th>ตำบล</th>
+                <th>อำเภอ</th>
+                <th>จังหวัด</th>
+                <th>เบอร์โทร</th>
+                <th>วันที่คัดกรอง</th>
+                <th>ผลการติดตาม</th>
+                <th>สรุปผล</th>
+                <th>นัดถัดไป</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fmild of followred">
+                <td>
+                  <i class="feather icon-trash-2"></i>&nbsp;
+                  <i class="feather icon-file mt-3" (click)="onClickass(fmild._id)"></i>&nbsp;
+                  <i class="feather icon-external-link mt-3"></i>
+                </td>
+                <td>{{ fmild.fname }}</td>
+                <td>{{ fmild.lname }}</td>
+                <td>{{ fmild.address?.bannumber}}</td>
+                <td>{{ fmild.address?.moo}}</td>
+                <td>{{ fmild.address?.subdistrict}}</td>
+                <td>{{ fmild.address?.district}}</td>
+                <td>{{ fmild.address?.province }}</td>
+                <td>{{ fmild.phone }}</td>
+                <td>
+                  <ul>
+                    <li *ngFor="let a of fmild.assessment">
+                      {{ a.assessmentdate | date:'shortDate' }} (รอบ {{ a.round }}) → คะแนน: {{ a.score }}
+                    </li>
+                  </ul>
+                </td>
+                <td></td>
+                <td></td>
+                <td>{{ fmild.followup[0]?.nextAppointment | thaiDate }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
       </div>
     </div>
   </div>
+</div>
 <!--row 8Q-->
 <div class="row" *ngIf="showform">
   <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title fs-2">8Q</h3>
+        <div class="row">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="card-title fs-2">แบบประเมินการฆ่าตัวตาย 8 คำถาม (8Q)</h2>
+                <div class="table-responsive pt-3">
+                  <form [formGroup]="form">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>ระยะเวลา</th>
+                          <th>คำถาม</th>
+                          <th>คำตอบ</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td></td>
+                          <td>คิดอยากตาย หรือ คิดว่าตายไปจะดีกว่า</td>
+                          <td>
+                            <div class="row">
+                              <div class="col-3" *ngFor="let option of answerOptions1">
+                                <span class="me-2"></span>
+                                <input class="form-check-input" type="radio" name="answer1" formControlName="answer1"
+                                  [value]="option.value">
+                                <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td></td>
+                          <td>คิอยากทำร้ายตัวเอง หรือ ทำให้ตัวเองบาดเจ็บ</td>
+                          <td>
+                            <div class="row">
+                              <div class="col-3" *ngFor="let option of answerOptions2">
+                                <span class="me-2"></span>
+                                <input class="form-check-input" type="radio" name="answer2" formControlName="answer2"
+                                  [value]="option.value">
+                                <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>ในช่วง 1 เดือนที่ผ่านมารวมวันนี้</td>
+                          <td>
+                            คิดเกี่ยวกับการฆ่าตัวตาย
+                            <div *ngIf="a != false">
+                              <hr>
+                              <p>(ถ้าตอบว่าคิดเกี่ยวกับฆ่าตัวตายให้ถามต่อ) .... ท่านสามารถ</p>
+                              ควบคุมความอยากฆ่าตัวตายที่ท่านคิดอยู่นั้นได้หรือไม่ หรือ<br>
+                              บอกได้ไหมว่าคงจะไม่ทำตามความคิดนั้นในขณะนี้
+                            </div>
+                          </td>
+                          <td>
+                            <div class="row">
+                              <div class="col-3" *ngFor="let option of answerOptions3">
+                                <span class="me-2"></span>
+                                <input class="form-check-input" type="radio" name="answer3" formControlName="answer3"
+                                  [value]="option.value" (change)="onAnswer3Change(option.value)">
+                                <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                              </div>
+                              <div *ngIf="a !=false ">
+                                <hr>
+                                <div class="col-3" *ngFor="let option of answerOptions3_1">
+                                  <span class="me-2"></span>
+                                  <input class="form-check-input" type="radio" name="answer31"
+                                    formControlName="answer31" [value]="option.value">
+                                  <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td>ในช่วง 1 เดือนที่ผ่านมารวมวันนี้</td>
+                          <td>มีแผนการที่จะฆ่าตัวตาย</td>
+                          <td>
+                            <div class="row">
+                              <div class="col-3" *ngFor="let option of answerOptions4">
+                                <span class="me-2"></span>
+                                <input class="form-check-input" type="radio" name="answer4" formControlName="answer4"
+                                  [value]="option.value">
+                                <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>5</td>
+                          <td>ในช่วง 1 เดือนที่ผ่านมารวมวันนี้</td>
+                          <td>ได้เตรียมการที่จะทำร้ายตนเองหรือเตรียมการจะฆ่าตัวตายโดยตั้งใจว่าจะให้ตายจริง ๆ </td>
+                          <td>
+                            <div class="row">
+                              <div class="col-3" *ngFor="let option of answerOptions5">
+                                <span class="me-2"></span>
+                                <input class="form-check-input" type="radio" name="answer5" formControlName="answer5"
+                                  [value]="option.value">
+                                <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>6</td>
+                          <td></td>
+                          <td>ได้ทำให้ตนเองบาดเจ็บแต่ไม่ตั้งใจที่จะทำให้เสียชีวิต </td>
+                          <td>
+                            <div class="row">
+                              <div class="col-3" *ngFor="let option of answerOptions6">
+                                <span class="me-2"></span>
+                                <input class="form-check-input" type="radio" name="answer6" formControlName="answer6"
+                                  [value]="option.value">
+                                <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>7</td>
+                          <td></td>
+                          <td>ได้พยายามฆ่าตัวตายโดยคาดหวัง/ตั้งใจที่จะให้ตาย</td>
+                          <td>
+                            <div class="row">
+                              <div class="col-3" *ngFor="let option of answerOptions7">
+                                <span class="me-2"></span>
+                                <input class="form-check-input" type="radio" name="answer7" formControlName="answer7"
+                                  [value]="option.value">
+                                <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>8</td>
+                          <td>ตลอดชีวิตที่ผ่านมา</td>
+                          <td>ท่านเคยพยายามฆ่าตัวตาย </td>
+                          <td>
+                            <div class="row">
+                              <div class="col-3" *ngFor="let option of answerOptions8">
+                                <span class="me-2"></span>
+                                <input class="form-check-input" type="radio" name="answer8" formControlName="answer8"
+                                  [value]="option.value">
+                                <label class="form-check-label" for="radioDefault"> {{ option.label }} </label>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <!--ng-bootstrap alert -->
+                        <tr *ngIf="showAlert">
+                          <td colspan="4" class="text-center">
+                            <ngb-alert [type]="alertType" (close)="showAlert = false" [dismissible]="true">
+                              ระดับความเสี่ยง: <strong>{{ form.value.risklevel }}</strong>
+                            </ngb-alert>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="4" class="text-center">
+                            <button type="submit" class="btn btn-primary" (click)="onSubmit()">บันทึก</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-  

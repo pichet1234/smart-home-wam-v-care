@@ -4,7 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { ThaiDatePipe } from "../../../../core/pipes/thai-date.pipe";
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-risk',
   standalone: true,
@@ -38,8 +38,11 @@ export class RiskComponent {
   form: FormGroup;
   showAlert = false;
   alertType = 'info'; // default: primary/info/warning/danger
+  path: string = '8q'
   constructor(private apidata: ApiDataService, private fb: FormBuilder) {
     this.form = this.fb.group({
+      pid: [''],
+      userid: [null],
       answer1: [''],
       answer2: [''],
       answer3: [''],
@@ -71,6 +74,9 @@ export class RiskComponent {
     console.log(id)
     this.showform = true;
     this.showtable = false;
+    this.form.patchValue({
+      pid:id
+    })
   }
   onSubmit() {
     const formValue = this.form.value;
@@ -118,7 +124,18 @@ export class RiskComponent {
     this.showAlert = true;
     console.log(this.form.value);
   //ส่งไปยัง backend 
-
+    this.apidata.sendData(this.path, this.form.value).subscribe(
+      (response) => {
+        if (response) {
+          console.log(response.data);
+        } else {
+          console.log('error response');
+        }
+      },
+      (err) => {
+        console.log('error response', err);
+      }
+    );
   }
 
 }

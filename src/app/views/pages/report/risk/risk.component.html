@@ -216,6 +216,17 @@
                             </div>
                           </td>
                         </tr>
+                        <tr>
+                          <td colspan="4">
+                            <p><strong>หมายเหตุ:</strong></p>  
+                            <ul>
+                              <li> 0 ไม่มีแนวโน้มจะฆ่าตัวตายในปัจจุบัน    </li>
+                              <li>1-8 มีแนวโน้มจะฆ่าตัวตายในปัจจุบันในระดับน้อย</li>
+                              <li>9-16มีแนวโน้มจะฆ่าตัวตายในปัจจุบันในระดับปานกลาง</li>
+                              <li>≥17มีแนวโน้มจะฆ่าตัวตายในปัจจุบันในระดับรุนแรง</li>
+                            </ul>
+                          </td>
+                        </tr>
                         <!--ng-bootstrap alert -->
                         <tr *ngIf="showAlert">
                           <td colspan="4" class="text-center">
@@ -226,7 +237,8 @@
                         </tr>
                         <tr>
                           <td colspan="4" class="text-center">
-                            <button type="submit" class="btn btn-primary" (click)="onSubmit()">บันทึก</button>
+                            <button type="submit" class="btn btn-primary" style="margin-right: 3px;" (click)="onSubmit()">ผลการประเมิน</button>
+                            <button type="button" class="btn btn-success">ส่งผลการประเมิน</button>
                           </td>
                         </tr>
                       </tbody>

@@ -122,8 +122,38 @@ export class RiskComponent {
     });
     this.alertType = alertColor;
     this.showAlert = true;
+    //ส่งไปยัง backend 
+  }
+  
+  sendDatato(){
+        const formValue = this.form.value;
+    // คำนวณคะแนนรวม (ไม่รวม answer31 ถ้าไม่ได้แสดง)
+    let total = 0;
+    for (let i = 1; i <= 8; i++) {
+      const v = Number(formValue[`answer${i}`]);
+      total += isNaN(v) ? 0 : v;
+    }
+
+    // รวม answer31 ถ้าแสดง
+    if (this.a && formValue.answer31) {
+      total += Number(formValue.answer31);
+    }
+  
+     let riskLevelText = '';
+  if (total === 0) {
+    riskLevelText = 'ไม่มีแนวโน้มฆ่าตัวตายในปัจจุบัน';
+  } else if (total >= 1 && total <= 8) {
+    riskLevelText = 'มีแนวโน้มที่จะฆ่าตัวตายในปัจจุบัน ระดับน้อย';
+  } else if (total >= 9 && total <= 16) {
+    riskLevelText = 'มีแนวโน้มที่จะฆ่าตัวตายในปัจจุบัน ระดับปานกลาง';
+  } else if (total >= 17) {
+    riskLevelText = 'มีแนวโน้มที่จะฆ่าตัวตายในปัจจุบัน ระดับรุนแรง';
+  }
+    this.form.patchValue({
+      totalScore: total,
+      risklevel: riskLevelText
+    });
     console.log(this.form.value);
-  //ส่งไปยัง backend 
     this.apidata.sendData(this.path, this.form.value).subscribe(
       (response) => {
         if (response) {
@@ -137,5 +167,4 @@ export class RiskComponent {
       }
     );
   }
-
 }

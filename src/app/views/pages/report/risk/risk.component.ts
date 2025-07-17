@@ -157,7 +157,12 @@ export class RiskComponent {
     this.apidata.sendData(this.path, this.form.value).subscribe(
       (response) => {
         if (response) {
-          console.log(response.data);
+          Swal.fire({
+            icon: "success",
+            title: response.message,
+            showConfirmButton: false,
+            timer: 1500
+          })
         } else {
           console.log('error response');
         }

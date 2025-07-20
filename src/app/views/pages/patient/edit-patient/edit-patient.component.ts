@@ -8,6 +8,7 @@ import { RouterModule, ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { ApiDataService } from '../../../../core/services/api-data.service';
 import Swal from 'sweetalert2';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { AlertOneService } from '../../../../core/services/alert-one.service';
 
 @Component({
   selector: 'app-edit-patient',
@@ -48,7 +49,13 @@ export class EditPatientComponent {
   subdistricts: any[] = [];
   errorMessage:string =  '';
   pid:string = '';
-  constructor(private fb: FormBuilder , private apidataService: ApiDataService, private route: Router , private activateroute: ActivatedRoute,private datePipe: DatePipe) {
+  constructor(
+    private fb: FormBuilder ,
+    private apidataService: ApiDataService,
+    private route: Router , 
+    private activateroute: ActivatedRoute,
+    private datePipe: DatePipe,
+    private alertone: AlertOneService) {
     this.form = this.fb.group({
       pid:[''],
       cid:[''],
@@ -160,5 +167,9 @@ onSubmit(){
         console.error('เกิดข้อผิดพลาด:', error);
       }
     });
-  }      
+  } 
+  
+  delectPatient(){
+    this.alertone.getDeleteConfirm();
+  }
 }

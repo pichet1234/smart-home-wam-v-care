@@ -30,4 +30,23 @@ export class AlertOneService {
       icon:'warning',
     });
   }
+  getUpdateSuccess(message: any) {
+  return Swal.fire({
+    title: 'Update Successful',
+    text: message,
+    icon: 'success',
+  });
+}
+
+getDeleteConfirm() {
+  return Swal.fire({
+    title: 'คุณแน่ใจหรือไม่?',
+    text: 'คุณต้องการลบข้อมูลนี้หรือไม่? การลบไม่สามารถย้อนกลับได้!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'ลบ',
+    cancelButtonText: 'ยกเลิก',
+  });
+}
+
 }

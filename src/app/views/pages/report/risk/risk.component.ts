@@ -5,6 +5,7 @@ import { ThaiDatePipe } from "../../../../core/pipes/thai-date.pipe";
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-risk',
   standalone: true,
@@ -39,7 +40,7 @@ export class RiskComponent {
   showAlert = false;
   alertType = 'info'; // default: primary/info/warning/danger
   path: string = '8q'
-  constructor(private apidata: ApiDataService, private fb: FormBuilder) {
+  constructor(private apidata: ApiDataService, private fb: FormBuilder, private roure: Router) {
     this.form = this.fb.group({
       pid: [''],
       userid: [null],
@@ -160,9 +161,12 @@ export class RiskComponent {
           Swal.fire({
             icon: "success",
             title: response.message,
-            showConfirmButton: false,
-            timer: 1500
-          })
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload(); 
+            }
+          });
         } else {
           console.log('error response');
         }

@@ -48,7 +48,7 @@ export class EditPatientComponent {
   districts: any[] = [];
   subdistricts: any[] = [];
   errorMessage:string =  '';
-  pid:string = '';
+  pid: string | null = null; 
   constructor(
     private fb: FormBuilder ,
     private apidataService: ApiDataService,
@@ -77,7 +77,7 @@ export class EditPatientComponent {
   ngOnInit() {
   this.activateroute.queryParamMap.subscribe((param: ParamMap)=>{
     const pidFromUrl = param.get('pid');
-
+    this.pid = pidFromUrl
     if(pidFromUrl){
       this.apidataService.viewPatient(pidFromUrl).subscribe({
         next: (res)=>{
@@ -168,8 +168,39 @@ onSubmit(){
       }
     });
   } 
-  
+  //ลบ patient
   delectPatient(){
-    this.alertone.getDeleteConfirm();
+    Swal.fire({
+    title: 'คุณแน่ใจหรือไม่?',
+    text: 'คุณต้องการลบข้อมูลนี้หรือไม่? การลบไม่สามารถย้อนกลับได้!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'ลบ',
+    cancelButtonText: 'ยกเลิก',
+    }).then((result)=>{
+    if(result.isConfirmed){
+      this.apidataService.sendData('deletepat',this.form.value).subscribe({
+        next: (response: any) => {
+          if (response) {
+            Swal.fire({
+              title: 'DELETE DATA',
+              text: 'คุณได้ลบข้อมูลเรียบร้อยแล้ว',
+              icon:'success',
+              showCancelButton:true,
+              confirmButtonText:'ตกลง',
+              cancelButtonText: 'ปิด'
+            }).then((result)=>{
+              if(result.isConfirmed){
+               this.route.navigate(['/patient/patient']);
+              }
+            });
+          }
+        },
+        error: (error) => {
+          console.error('เกิดข้อผิดพลาด:', error);
+        }
+        });
+    }
+    });
   }
 }

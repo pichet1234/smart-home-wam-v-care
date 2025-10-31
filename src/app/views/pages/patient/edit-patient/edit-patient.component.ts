@@ -9,6 +9,7 @@ import { ApiDataService } from '../../../../core/services/api-data.service';
 import Swal from 'sweetalert2';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { AlertOneService } from '../../../../core/services/alert-one.service';
+import { AgePipe } from '../../../../core/pipes/age.pipe';
 
 @Component({
   selector: 'app-edit-patient',
@@ -19,7 +20,8 @@ import { AlertOneService } from '../../../../core/services/alert-one.service';
     CommonModule,
     GoogleMap,
     MapMarker,
-    RouterModule
+    RouterModule,
+    AgePipe
   ],
   providers: [DatePipe,provideNgxMask()],
   templateUrl: './edit-patient.component.html',

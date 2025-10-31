@@ -28,7 +28,7 @@ export class AgePipe implements PipeTransform {
     if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
       age--;
     }
-    return null;
+    return age;
   }
 
 }

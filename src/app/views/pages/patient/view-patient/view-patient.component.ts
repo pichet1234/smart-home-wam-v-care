@@ -8,6 +8,7 @@ import { RouterModule, ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { ApiDataService } from '../../../../core/services/api-data.service';
 import Swal from 'sweetalert2';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { AgePipe } from '../../../../core/pipes/age.pipe';
 
 @Component({
   selector: 'app-view-patient',
@@ -19,7 +20,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     GoogleMapsModule,
     GoogleMap,
     MapMarker,
-    RouterModule
+    RouterModule,
+    AgePipe
   ],
   providers: [DatePipe],
   templateUrl: './view-patient.component.html',
